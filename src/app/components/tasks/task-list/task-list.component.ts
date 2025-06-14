@@ -173,7 +173,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   get filteredTasks(): Task[] {
-    let tasks = this.tasks;
+    let tasks = this.tasks.filter(task => !task.completed); // Sadece tamamlanmamış görevleri al
     
     // Kategori filtresi
     if (this.selectedCategory) {
