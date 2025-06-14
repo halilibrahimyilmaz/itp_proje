@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Görevlerim</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="user$ | async as user; else loggedOut">
+          <li class="nav-item">
+            Hoş geldin, {{ user.email }}
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()" style="cursor:pointer;">Çıkış</a>
+          </li>
+        </ng-container>
+        <ng-template #loggedOut>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Giriş</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Kayıt Ol</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
