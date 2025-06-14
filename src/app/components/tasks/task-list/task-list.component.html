@@ -18,7 +18,7 @@
           <div *ngIf="!loading && categories.length === 0" class="text-center py-4">
             <i class="bi bi-tag text-muted" style="font-size: 2rem;"></i>
             <p class="mt-3 text-muted">Henüz kategori eklenmemiş.</p>
-            <button class="btn btn-outline-primary btn-sm" (click)="showAddCategoryModal = true">
+            <button class="btn btn-outline-primary btn-sm" (click)="showAddCategoryModal()">
               <i class="bi bi-plus-circle me-2"></i>Kategori Ekle
             </button>
           </div>
@@ -61,6 +61,28 @@
           </button>
         </div>
         <div class="card-body">
+          <!-- Kategori Filtresi -->
+          <div class="dropdown mb-4">
+            <!-- <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              {{ selectedCategory ? getCategoryName(selectedCategory) : 'Tüm Kategoriler' }}
+            </button> -->
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#" (click)="selectCategory(null)">
+                  Tüm Kategoriler
+                  <span class="badge bg-primary">{{ getTaskCountByCategory(null) }}</span>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li *ngFor="let category of categories">
+                <a class="dropdown-item" href="#" (click)="selectCategory(category.id)">
+                  {{ category.name }}
+                  <span class="badge bg-primary">{{ getTaskCountByCategory(category.id) }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
           <!-- Sıralama Kontrolleri -->
           <div class="mb-3">
             <button class="btn btn-outline-secondary btn-sm" (click)="toggleSort()">
@@ -184,12 +206,12 @@
 </div>
 
 <!-- Add Category Modal -->
-<div class="modal fade" id="addCategoryModal" tabindex="-1" [class.show]="showAddCategoryModal" [style.display]="showAddCategoryModal ? 'block' : 'none'">
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Yeni Kategori</h5>
-        <button type="button" class="btn-close" (click)="closeAddCategoryModal()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form #categoryForm="ngForm" (ngSubmit)="addCategory()">
@@ -198,7 +220,7 @@
             <input type="text" class="form-control" [(ngModel)]="newCategory.name" name="name" required>
           </div>
           <div class="text-end">
-            <button type="button" class="btn btn-secondary me-2" (click)="closeAddCategoryModal()">İptal</button>
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">İptal</button>
             <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.form.valid">Ekle</button>
           </div>
         </form>
@@ -252,7 +274,4 @@
         </form>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="modal-backdrop fade" [class.show]="showEditModal || showAddCategoryModal || showAddTaskModal" [style.display]="(showEditModal || showAddCategoryModal || showAddTaskModal) ? 'block' : 'none'"></div> 
+  </div> 

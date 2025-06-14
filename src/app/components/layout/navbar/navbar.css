@@ -2,32 +2,92 @@
 .navbar {
   padding: 0.8rem 0;
   transition: all 0.3s ease;
+  background: linear-gradient(to right, #ffffff, #f8f9fa) !important;
 }
 
 .navbar-brand {
   font-size: 1.4rem;
   transition: all 0.3s ease;
+  color: #2c3e50 !important;
 }
 
 .navbar-brand:hover {
   transform: translateY(-1px);
+  color: #3498db !important;
 }
 
 /* Menü Linkleri */
 .nav-link {
   padding: 0.5rem 1rem !important;
-  border-radius: 5px;
-  transition: all 0.2s ease;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: #34495e !important;
+  font-weight: 500;
+  margin: 0 0.2rem;
 }
 
 .nav-link:hover {
   background-color: #f8f9fa;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  color: #3498db !important;
 }
 
 .nav-link.active {
-  color: #0d6efd !important;
+  color: #3498db !important;
   background-color: #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Giriş/Kayıt Butonları */
+.nav-item .nav-link[routerLink="/login"],
+.nav-item .nav-link[routerLink="/register"] {
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav-item .nav-link[routerLink="/login"] {
+  color: #3498db !important;
+  border: 2px solid #3498db;
+  margin-right: 0.5rem;
+}
+
+.nav-item .nav-link[routerLink="/register"] {
+  background-color: #3498db;
+  color: white !important;
+  border: 2px solid #3498db;
+}
+
+.nav-item .nav-link[routerLink="/login"]:hover {
+  background-color: #3498db;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+.nav-item .nav-link[routerLink="/register"]:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+}
+
+/* Çıkış Butonu */
+.btn-outline-danger {
+  border: 2px solid #e74c3c;
+  color: #e74c3c;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+  background-color: #e74c3c;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.2);
 }
 
 /* Kullanıcı Menüsü */
@@ -102,10 +162,12 @@
 .bi {
   font-size: 1.1rem;
   transition: all 0.2s ease;
+  margin-right: 0.3rem;
 }
 
 .nav-link:hover .bi {
   transform: scale(1.1);
+  color: #3498db;
 }
 
 /* Mobil Menü */
@@ -113,13 +175,25 @@
   .navbar-collapse {
     background: white;
     padding: 1rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     margin-top: 1rem;
   }
 
   .nav-link {
     padding: 0.8rem 1rem !important;
+    margin: 0.3rem 0;
+  }
+
+  .nav-item .nav-link[routerLink="/login"],
+  .nav-item .nav-link[routerLink="/register"] {
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  .btn-outline-danger {
+    width: 100%;
+    margin-top: 0.5rem;
   }
 
   .dropdown-menu {
@@ -151,4 +225,9 @@
 
 .dropdown-menu.show {
   animation: fadeIn 0.2s ease;
+}
+
+/* Navbar için boşluk */
+.navbar-spacer {
+  height: 72px;
 }

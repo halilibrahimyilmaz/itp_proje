@@ -5,26 +5,6 @@
     </div>
   </div>
 
-  <div class="row mb-4">
-    <div class="col">
-      <div class="btn-group">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          {{ selectedCategory ? getCategoryName(selectedCategory) : 'Tüm Kategoriler' }}
-        </button>
-        <ul class="dropdown-menu">
-          <li><button class="dropdown-item" (click)="selectCategory(null)">Tüm Kategoriler</button></li>
-          <li><hr class="dropdown-divider"></li>
-          <li *ngFor="let category of categories">
-            <button class="dropdown-item" (click)="selectCategory(category.id)">
-              {{ category.name }}
-              <span class="badge bg-secondary float-end">{{ getTaskCountByCategory(category.id) }}</span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col">
       <div *ngIf="loading" class="text-center">
@@ -34,7 +14,7 @@
       </div>
 
       <div *ngIf="!loading && !filteredTasks.length" class="alert alert-info">
-        {{ selectedCategory ? 'Bu kategoride tamamlanan görev bulunmuyor.' : 'Henüz tamamlanan görev bulunmuyor.' }}
+        Henüz tamamlanan görev bulunmuyor.
       </div>
 
       <div *ngIf="!loading && filteredTasks.length" class="list-group">

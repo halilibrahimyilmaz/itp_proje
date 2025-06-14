@@ -7,6 +7,7 @@ import { Task } from '../../../models/task.model';
 import { Category } from '../../../models/category.model';
 import { Subscription } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-task-list',
@@ -124,7 +125,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
   selectedCategory: string | null = null;
   showAddTaskModal = false;
   showEditModal = false;
-  showAddCategoryModal = false;
   editingTask: Task | null = null;
   newCategory = { id: '', name: '', userId: '', createdAt: new Date() };
   newTask = {
@@ -139,6 +139,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   };
   private subscription: Subscription | undefined;
   private sortByCategory = false;
+  private categoryModal: any;
 
   constructor(
     private taskService: TaskService,
@@ -154,11 +155,20 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.categoryService.categories$.subscribe(categories => {
       this.categories = categories;
     });
+
+    // Initialize Bootstrap modal
+    const modalElement = document.getElementById('addCategoryModal');
+    if (modalElement) {
+      this.categoryModal = new bootstrap.Modal(modalElement);
+    }
   }
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+    if (this.categoryModal) {
+      this.categoryModal.dispose();
     }
   }
 
@@ -190,8 +200,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
     return this.sortByCategory ? 'bi-sort-alpha-down' : 'bi-sort-alpha-down-alt';
   }
 
-  getTaskCountByCategory(categoryId: string): number {
-    return this.tasks.filter(task => task.categoryId === categoryId).length;
+  getTaskCountByCategory(categoryId: string | null): number {
+    if (categoryId === null) {
+      return this.tasks.filter(task => !task.completed).length;
+    }
+    return this.tasks.filter(task => !task.completed && task.categoryId === categoryId).length;
   }
 
   selectCategory(categoryId: string | null) {
@@ -274,11 +287,25 @@ export class TaskListComponent implements OnInit, OnDestroy {
     };
   }
 
+  showAddCategoryModal() {
+    this.newCategory = { id: '', name: '', userId: '', createdAt: new Date() };
+    if (this.categoryModal) {
+      this.categoryModal.show();
+    }
+  }
+
+  closeAddCategoryModal() {
+    if (this.categoryModal) {
+      this.categoryModal.hide();
+    }
+    this.newCategory = { id: '', name: '', userId: '', createdAt: new Date() };
+  }
+
   addCategory() {
     if (this.newCategory.name.trim()) {
       const category: Category = {
         id: '',
-        name: this.newCategory.name,
+        name: this.newCategory.name.trim(),
         userId: '',
         createdAt: new Date()
       };
@@ -289,14 +316,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('Kategori eklenirken hata oluştu:', error);
+          alert('Kategori eklenirken bir hata oluştu. Lütfen tekrar deneyin.');
         }
       });
     }
-  }
-
-  closeAddCategoryModal() {
-    this.showAddCategoryModal = false;
-    this.newCategory = { id: '', name: '', userId: '', createdAt: new Date() };
   }
 
   deleteCategory(category: Category) {

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   template: `
     <div class="container mt-5">
       <div class="row justify-content-center">
@@ -32,6 +32,7 @@ import { AuthService } from '../../../services/auth.service';
                     required
                     minlength="2"
                     #displayNameInput="ngModel"
+                    placeholder="Adınızı ve soyadınızı girin"
                   >
                   <div *ngIf="displayNameInput.invalid && (displayNameInput.dirty || displayNameInput.touched)" class="text-danger">
                     <small *ngIf="displayNameInput.errors?.['required']">Ad Soyad gerekli.</small>
@@ -50,6 +51,7 @@ import { AuthService } from '../../../services/auth.service';
                     required
                     email
                     #emailInput="ngModel"
+                    placeholder="E-posta adresinizi girin"
                   >
                   <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-danger">
                     <small *ngIf="emailInput.errors?.['required']">E-posta adresi gerekli.</small>
@@ -68,6 +70,7 @@ import { AuthService } from '../../../services/auth.service';
                     required
                     minlength="6"
                     #passwordInput="ngModel"
+                    placeholder="Şifrenizi girin"
                   >
                   <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-danger">
                     <small *ngIf="passwordInput.errors?.['required']">Şifre gerekli.</small>
@@ -85,6 +88,7 @@ import { AuthService } from '../../../services/auth.service';
                     [(ngModel)]="confirmPassword"
                     required
                     #confirmPasswordInput="ngModel"
+                    placeholder="Şifrenizi tekrar girin"
                   >
                   <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="text-danger">
                     <small *ngIf="confirmPasswordInput.errors?.['required']">Şifre tekrarı gerekli.</small>
@@ -110,15 +114,71 @@ import { AuthService } from '../../../services/auth.service';
   `,
   styles: [`
     .card {
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card-title {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 0.75rem;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    }
+
     .btn-primary {
       background-color: #007bff;
-      border-color: #007bff;
+      border: none;
+      padding: 0.75rem;
+      font-weight: 500;
     }
+
     .btn-primary:hover {
       background-color: #0056b3;
-      border-color: #0056b3;
+    }
+
+    .btn-primary:disabled {
+      background-color: #ccc;
+    }
+
+    .alert-danger {
+      background-color: #fff5f5;
+      border: none;
+      color: #dc3545;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+
+    .text-danger small {
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   `]
 })
@@ -136,7 +196,6 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Eğer kullanıcı zaten giriş yapmışsa tasks sayfasına yönlendir
     this.authService.currentUser$.subscribe(user => {
       if (user) {
         this.router.navigate(['/tasks']);

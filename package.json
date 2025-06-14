@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:gorevlerim": "node dist/gorevlerim/server/server.mjs"
+    "serve:ssr:gorevlerim": "node dist/gorevlerim/server/server.mjs",
+    "dev:ssr": "ng run gorevlerim:serve-ssr",
+    "build:ssr": "ng build && ng run gorevlerim:server"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +24,7 @@
     "@angular/router": "^20.0.0",
     "@angular/ssr": "^20.0.2",
     "bootstrap": "^5.3.6",
+    "bootstrap-icons": "^1.13.1",
     "express": "^5.1.0",
     "firebase": "^11.9.1",
     "rxjs": "~7.8.0",
@@ -29,6 +32,7 @@
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^20.0.2",
     "@angular/build": "^20.0.2",
     "@angular/cli": "^20.0.2",
     "@angular/compiler-cli": "^20.0.0",

@@ -1,6 +1,20 @@
 {
   "rules": {
-    ".read": "now < 1752440400000",  // 2025-7-14
-    ".write": "now < 1752440400000",  // 2025-7-14
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "tasks": {
+      ".indexOn": ["userId"],
+      "$taskId": {
+        ".read": "auth != null && data.child('userId').val() === auth.uid",
+        ".write": "auth != null && (!data.exists() || data.child('userId').val() === auth.uid)"
+      }
+    },
+    "categories": {
+      ".indexOn": ["userId"],
+      "$categoryId": {
+        ".read": "auth != null && data.child('userId').val() === auth.uid",
+        ".write": "auth != null && (!data.exists() || data.child('userId').val() === auth.uid)"
+      }
+    }
   }
 }
