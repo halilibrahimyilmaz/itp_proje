@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyBg0IPWHTRjOW0RQXdgOr1kDlkl_9w61xM",
   authDomain: "gorevlerim-d720b.firebaseapp.com",
+  databaseURL: "https://gorevlerim-d720b-default-rtdb.firebaseio.com",
   projectId: "gorevlerim-d720b",
   storageBucket: "gorevlerim-d720b.firebasestorage.app",
   messagingSenderId: "465853768691",

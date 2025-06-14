@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -122,7 +122,7 @@ import { AuthService } from '../../../services/auth.service';
     }
   `]
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   displayName: string = '';
   email: string = '';
   password: string = '';
@@ -134,6 +134,15 @@ export class RegisterComponent {
     private authService: AuthService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    // Eğer kullanıcı zaten giriş yapmışsa tasks sayfasına yönlendir
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/tasks']);
+      }
+    });
+  }
 
   async onSubmit(): Promise<void> {
     if (this.displayName && this.email && this.password && this.password === this.confirmPassword) {

@@ -1,0 +1,103 @@
+<div class="container-fluid py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Başlık ve Yeni Kategori Ekleme -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="card-title mb-4">
+            <i class="bi bi-tags me-2"></i>
+            Kategori Yönetimi
+          </h4>
+          <button class="btn btn-primary" (click)="showAddCategoryModal()">
+            <i class="bi bi-plus-circle me-2"></i>
+            Yeni Kategori Ekle
+          </button>
+        </div>
+      </div>
+
+      <!-- Kategori Listesi -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+          <h5 class="mb-0">
+            <i class="bi bi-list-ul me-2"></i>
+            Kategorilerim
+          </h5>
+        </div>
+        <div class="card-body p-0">
+          <!-- Yükleniyor Durumu -->
+          <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Yükleniyor...</span>
+            </div>
+            <p class="mt-2 text-muted">Kategoriler yükleniyor...</p>
+          </div>
+
+          <!-- Boş Durum -->
+          <div *ngIf="!loading && categories.length === 0" class="text-center py-5">
+            <i class="bi bi-folder-x display-1 text-muted mb-3"></i>
+            <h5 class="text-muted">Henüz kategori eklenmemiş</h5>
+            <p class="text-muted">Yeni bir kategori eklemek için yukarıdaki butonu kullanın.</p>
+          </div>
+
+          <!-- Kategori Listesi -->
+          <div class="list-group list-group-flush">
+            <div *ngFor="let category of categories" 
+                 class="list-group-item d-flex justify-content-between align-items-center py-3">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-folder me-3 text-primary fs-4"></i>
+                <div>
+                  <h6 class="mb-0">{{category.name}}</h6>
+                  <small class="text-muted">
+                    Oluşturulma: {{category.createdAt | date:'dd/MM/yyyy HH:mm'}}
+                  </small>
+                </div>
+              </div>
+              <button class="btn btn-outline-danger btn-sm" 
+                      (click)="deleteCategory(category)"
+                      title="Kategoriyi Sil">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Yeni Kategori</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addCategory()" #categoryForm="ngForm">
+          <div class="mb-3">
+            <label for="categoryName" class="form-label">Kategori Adı</label>
+            <input
+              type="text"
+              class="form-control"
+              id="categoryName"
+              name="categoryName"
+              [(ngModel)]="newCategoryName"
+              required
+              #categoryName="ngModel"
+            >
+            <div class="invalid-feedback" *ngIf="categoryName.invalid && categoryName.touched">
+              Kategori adı zorunludur
+            </div>
+          </div>
+          <div class="text-end">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">İptal</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!categoryForm.form.valid">
+              Kaydet
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 

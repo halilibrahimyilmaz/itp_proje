@@ -1,12 +1,13 @@
 export const environment = {
   production: false,
+  useEmulators: false,
   firebase: {
-    // TODO: Add your Firebase configuration here
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID'
+    apiKey: "AIzaSyBg0IPWHTRjOW0RQXdgOr1kDlkl_9w61xM",
+    authDomain: "gorevlerim-d720b.firebaseapp.com",
+    databaseURL: "https://gorevlerim-d720b-default-rtdb.firebaseio.com",
+    projectId: "gorevlerim-d720b",
+    storageBucket: "gorevlerim-d720b.appspot.com",
+    messagingSenderId: "465853768691",
+    appId: "1:465853768691:web:ddb677376df5e582796886"
   }
 }; 

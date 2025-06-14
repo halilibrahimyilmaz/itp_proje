@@ -1,0 +1,83 @@
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white py-3">
+          <h4 class="mb-0">
+            <i class="bi bi-person-circle me-2"></i>
+            Profil Bilgileri
+          </h4>
+        </div>
+        <div class="card-body">
+          <!-- Yükleniyor Durumu -->
+          <div *ngIf="loading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Yükleniyor...</span>
+            </div>
+            <p class="mt-2 text-muted">Profil bilgileri yükleniyor...</p>
+          </div>
+
+          <!-- Profil Formu -->
+          <form *ngIf="!loading" (ngSubmit)="updateProfile()">
+            <!-- Hata Mesajı -->
+            <div *ngIf="error" class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              {{ error }}
+            </div>
+
+            <!-- Başarı Mesajı -->
+            <div *ngIf="success" class="alert alert-success">
+              <i class="bi bi-check-circle me-2"></i>
+              {{ success }}
+            </div>
+
+            <!-- Kullanıcı Adı -->
+            <div class="mb-3">
+              <label for="displayName" class="form-label">Kullanıcı Adı</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="displayName"
+                  [(ngModel)]="displayName"
+                  name="displayName"
+                  placeholder="Kullanıcı adınızı girin">
+              </div>
+            </div>
+
+            <!-- E-posta -->
+            <div class="mb-4">
+              <label for="email" class="form-label">E-posta</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="email"
+                  [value]="email"
+                  disabled>
+              </div>
+              <small class="text-muted">E-posta adresi değiştirilemez.</small>
+            </div>
+
+            <!-- Kaydet Butonu -->
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="loading">
+                <i class="bi bi-save me-2"></i>
+                Değişiklikleri Kaydet
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

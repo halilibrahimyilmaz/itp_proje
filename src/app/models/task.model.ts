@@ -1,10 +1,14 @@
 import firebase from 'firebase/compat/app';
+
 export interface Task {
-  id?: string; // Firestore tarafından otomatik atanacak ID
+  id: string;
   title: string;
-  description?: string; // İsteğe bağlı açıklama
+  description: string;
+  categoryId: string;
+  dueDate: string;
+  priority: 'low' | 'medium' | 'high';
   completed: boolean;
-  createdAt?: firebase.firestore.FieldValue; // Firestore sunucu zaman damgası
-  userId: string; // Bu görevin hangi kullanıcıya ait olduğu
-  category?: string; // İsteğe bağlı kategori
+  userId: string;
+  createdAt: Date;
+  updatedAt?: Date;
 }

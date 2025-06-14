@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AuthService, User } from '../../../services/auth';
-import { Observable } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.css'
+  styleUrls: ['./navbar.css']
 })
 export class NavbarComponent {
-  user$: Observable<User | null>;
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService) {
-    this.user$ = this.authService.currentUser$;
+  get user$() {
+    return this.authService.currentUser$;
   }
 
   logout(): void {

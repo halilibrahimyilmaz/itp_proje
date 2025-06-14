@@ -1,0 +1,154 @@
+/* Navbar Genel Stiller */
+.navbar {
+  padding: 0.8rem 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: translateY(-1px);
+}
+
+/* Menü Linkleri */
+.nav-link {
+  padding: 0.5rem 1rem !important;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  color: #0d6efd !important;
+  background-color: #e9ecef;
+}
+
+/* Kullanıcı Menüsü */
+.user-menu {
+  padding: 0.5rem !important;
+  border-radius: 50px;
+  background-color: #f8f9fa;
+}
+
+.user-menu:hover {
+  background-color: #e9ecef;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9ecef;
+  border-radius: 50%;
+  color: #6c757d;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 500;
+  color: #212529;
+}
+
+.user-role {
+  font-size: 0.75rem;
+}
+
+/* Dropdown Menü */
+.dropdown-menu {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  min-width: 240px;
+  margin-top: 0.5rem;
+}
+
+.dropdown-header {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown-item {
+  border-radius: 5px;
+  padding: 0.7rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  transform: translateX(5px);
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #dc3545;
+  color: white !important;
+}
+
+/* İkonlar */
+.bi {
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover .bi {
+  transform: scale(1.1);
+}
+
+/* Mobil Menü */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 1rem;
+  }
+
+  .nav-link {
+    padding: 0.8rem 1rem !important;
+  }
+
+  .dropdown-menu {
+    border: none;
+    box-shadow: none;
+    padding-left: 1rem;
+  }
+
+  .user-menu {
+    background-color: transparent;
+  }
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-collapse.show {
+  animation: fadeIn 0.3s ease;
+}
+
+.dropdown-menu.show {
+  animation: fadeIn 0.2s ease;
+}
